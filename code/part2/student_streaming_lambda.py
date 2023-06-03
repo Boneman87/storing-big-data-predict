@@ -33,6 +33,7 @@ def get_current_time(second_delta):
     """
     now = datetime.now()
     current_delta_time = None
+    current_delta_time = now + timedelta(second_delta)
 
     # ===================== STUDENT INPUT REQUIRED ======================================
     # Complete this function as part of Step 3 in order to produce a datetime result that 
@@ -75,9 +76,9 @@ def lambda_handler(event, context):
 
     # ======================== EDIT THIS SECTION ========================================
     # Configure DynamoDB as part of Step 3
-    __TableName__ = 'DEDOREXP-streaming-dynamodb' # <-- Insert your table name
+    __TableName__ = 'DEOLUAKI-streaming-dynamodb' # <-- Insert your table name
     # Configure Firehose service as part of Step 6
-    firehose_name = 'DEDOREXP-deliverystream' # <-- Insert your Firehose name
+    firehose_name = 'deoluaki-deliverystream' # <-- Insert your Firehose name
     # ===================================================================================
 
      # Set up logging
@@ -167,6 +168,9 @@ def lambda_handler(event, context):
     # Put records into the Firehose stream
     firehose_client = boto3.client('firehose')
     try:
+        response = firehose_client.put_record_batch(
+            DeliveryStreamName=firehose_name,
+            Records=batch
 
         # ===================== STUDENT INPUT REQUIRED ======================================
         # Write code as part of Step 6 to push the generated `batch` list above to 
